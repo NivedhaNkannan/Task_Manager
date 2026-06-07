@@ -1,7 +1,7 @@
 class SubTask
   attr_accessor :name, :description, :due_date, :priority
 
-  def subtask
+  def initialize(name, description, due_date, priority)
     @name = name
     @description = description
     @due_date = due_date
