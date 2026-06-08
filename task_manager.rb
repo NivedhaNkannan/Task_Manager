@@ -1,5 +1,6 @@
 require_relative 'task'
 require_relative 'subtask'
+require 'date'
 
 class TaskManager
 
@@ -15,14 +16,35 @@ class TaskManager
     print "Description: "
     description = gets.chomp
 
-    print "Due Date: "
-    due_date = gets.chomp
+    due_date = nil 
+    loop do
+      print "Due Date (DD-MM-YYYY): "
+      due_date = gets.chomp
+      begin
+        Date.strptime(due_date, "%d-%m-%Y")
+        break
+      rescue ArgumentError
+        puts "The given date format is wrong"
+      end
+      
+    end
 
     print "Category: "
     category = gets.chomp
 
-    print "Priority: "
-    priority = gets.chomp
+    priority = nil
+    loop do
+      print "Priority(L/M/H): "
+      priority = gets.chomp.capitalize
+
+      if ["L","M","H"].include?(priority)
+        break
+      else
+        puts "The priority doesnt match. Enter valid priority"
+      end
+      
+    end
+    
 
     task = Task.new(
       @next_id,
@@ -62,11 +84,32 @@ class TaskManager
       print "Description: "
       description = gets.chomp
 
-      print "Due Date: "
-      due_date = gets.chomp
+      due_date = nil
+      loop do
+        print "Due Date(DD/MM/YYYY): "
+        due_date = gets.chomp
 
-      print "Priority: "
-      priority = gets.chomp
+        begin
+          due_date.strptime(due_date, "%d-%m-%y")
+          break
+        rescue ArgumentError
+          puts "Fix the date format"
+        end 
+        
+      end
+      priority = null 
+      loop do
+        print "Priority: "
+        priority = gets.chomp
+
+        if ['L','M','H'].include?(priority)
+           break
+        else
+          puts "The given priority is invalid. enter a valid priority"
+        end 
+        
+      end
+      
 
       subtask = SubTask.new(
         name,
