@@ -145,5 +145,4 @@ class TaskManager
       end
     end
   end
-
 end
