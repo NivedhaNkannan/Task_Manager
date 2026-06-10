@@ -11,7 +11,9 @@ loop do
   puts "3. Create Subtask"
   puts "4. View Subtasks"
   puts "5. Search Task"
-  puts "6. Exit"
+  puts "6. Update"
+  puts "7.Delete"
+  puts "8.Exit"
 
   print "Enter Choice: "
 
@@ -35,6 +37,12 @@ loop do
     manager.search_task
 
   when 6
+    manager.update_task
+    
+  when 7
+    manager.delete_task
+
+  when 8
     puts "Goodbye!"
     break
 

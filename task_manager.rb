@@ -62,13 +62,21 @@ class TaskManager
   end
 
   def view_tasks
+    if @tasks.empty?
+      puts "No task available"
+      return
+    end
     puts "\nTasks"
 
     puts "ID | Name | Description | Due Date | Category | Priority"
+    puts "-"  * 100
 
     @tasks.each do |task|
       puts "#{task.id} | #{task.name} | #{task.description} | #{task.due_date} | #{task.category} | #{task.priority}"
-    end
+      
+      end
+      puts "-" * 100
+    
   end
 
   def create_subtask
@@ -84,20 +92,19 @@ class TaskManager
       print "Description: "
       description = gets.chomp
 
-      due_date = nil
+      due_date = nil 
       loop do
-        print "Due Date(DD/MM/YYYY): "
+        print "Due Date (DD-MM-YYYY): "
         due_date = gets.chomp
-
         begin
-          due_date.strptime(due_date, "%d-%m-%y")
+          Date.strptime(due_date, "%d-%m-%Y")
           break
         rescue ArgumentError
-          puts "Fix the date format"
-        end 
+          puts "The given date format is wrong"
+        end
         
       end
-      priority = null 
+      priority = nil 
       loop do
         print "Priority: "
         priority = gets.chomp
@@ -131,6 +138,18 @@ class TaskManager
     task_id = gets.chomp.to_i
 
     task = @tasks.find { |t| t.id == task_id }
+    if task.nil?
+      puts "Task not found"
+      return
+    end
+
+    if task.subtasks.empty?
+      puts "No subtasks available"
+      return
+    end
+
+
+    
 
     if task
       puts "\nSubtasks"
@@ -188,4 +207,43 @@ class TaskManager
       end
     end
   end
+def update_task
+  print "Task id:"
+  task_id = gets.chomp.to_i
+
+  task = @tasks.find { |t| t.id == task_id }
+  if task.nil?
+    puts "Task not found!"
+    return
+    
+  end
+  print "New Name: (#{task.name}):"
+  name = gets.chomp
+  task.name = name unless name.empty?
+
+  print "due_date:"
+  due_date = gets.chomp
+  task.due_date = due_date unless due_date.empty?
+
+  print "Priority:"
+  priority = gets.chomp
+  task.priority = priority unless priority.empty?
+  
+
+  puts "Task updated successfully!"
+end
+
+def delete_task
+  print "Enter Task Id to delete:"
+  task_id = gets.chomp.to_i
+
+  task = @tasks.find { |t| t.id == task_id }
+  if task.nil?
+    puts "Task not found"
+    return
+  end
+  @tasks.delete(task)
+
+  puts "Task deleted successfully"
+end
 end
