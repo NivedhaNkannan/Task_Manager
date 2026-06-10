@@ -42,6 +42,7 @@ class TaskManager
       else
         puts "The priority doesnt match. Enter valid priority"
       end
+      puts "-" * 100
       
     end
     
@@ -131,6 +132,7 @@ class TaskManager
     else
       puts "Task Not Found!"
     end
+    puts "-" * 100
   end
 
   def view_subtasks
@@ -160,6 +162,7 @@ class TaskManager
     else
       puts "Task Not Found!"
     end
+    puts "-" * 100
   end
 
   def search_task
@@ -206,6 +209,7 @@ class TaskManager
         puts "#{task.id} | #{task.name}"
       end
     end
+    puts "-" * 100
   end
 def update_task
   print "Task id:"
@@ -231,6 +235,7 @@ def update_task
   
 
   puts "Task updated successfully!"
+  puts "-" * 100
 end
 
 def delete_task
